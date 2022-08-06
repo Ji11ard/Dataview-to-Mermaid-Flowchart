@@ -29,8 +29,41 @@ I suggest playing with these orderings until you are happy with the results - an
 ## YAML Configuration
 The following parameters can be included in the YAML of the charting page. Alternatively, these could be hard coded into the JS code itself - and the corresponding YAML variables have been listed at the top of the JS code to make this easier.  
 
-However, it may be easier to leave them in the YAML while you're still playing with with the DQL queries and their order.  
+However, it may be easier to leave them in the YAML while you're still playing with the DQL queries and their ordering. 
+
+### Example YAML
+```
+---
+Direction: "LR"
+ShowCode: false
+SubGroupNames: ["Authors", "Fiction", "Non-Fiction"]
+RemoveOrphans: false
+KeepLinksWithoutSource: true
+KeepLinksWithoutDest: true
+
+Nodes:
+ - 'TABLE WITHOUT ID Sources, "", "{{", "}}", "red" FROM #T/📚_Book WHERE Sources FLATTEN Sources SORT Kind, Topics, Sources'
+ - 'TABLE file.name, "([", "])", "yellow" FROM #T/📚_Book WHERE Kind = "Fiction" SORT Topics, Sources'
+ - 'TABLE file.name, "([", "])", "aqua" FROM #T/📚_Book WHERE Kind = "Non-Fiction" SORT Topics, Sources'
+
+Links:  
+ - 'TABLE WITHOUT ID Sources, file.name, "-- " + dateformat(Published, "dd MMM yyyy") + " -->" FROM #T/📚_Book WHERE Sources FLATTEN Sources'
+
+Styles: 
+ - 'classDef Custom1 fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px'
+---
+```
+
 ### General Parameters
+```
+Direction: "LR"
+ShowCode: false
+SubGroupNames: ["Authors", "Fiction", "Non-Fiction"]
+RemoveOrphans: false
+KeepLinksWithoutSource: true
+KeepLinksWithoutDest: true
+```
+
 | Field | Default | Description | 
 | - | - | - |
 | **Direction** | *"LR"* | The Layout direction for the chart - either "LR" or "TD".|
@@ -40,7 +73,15 @@ However, it may be easier to leave them in the YAML while you're still playing w
 | **KeepLinksWithoutSource** | *true* | If true, unformatted nodes will be created to represent the source of a link when there isn't a real node imported explicitly by [[#Node Queries]]. If false, such 'sourceless' links will be discarded.  Mostly useful for cleaning up when you don't want to add too many filter criteria to your link queries.|
 | **KeepLinksWithoutDest** | *true* | If true, unformatted nodes will be created to represent the destination of a link when there isn't a real node imported explicitly by [[#Node Queries]]. If false, such links will be discarded instead.  Mostly useful for cleaning up when you don't want to add too many filter criteria to your link queries.|
 
+
 ### Node Queries
+```
+Nodes:
+ - 'TABLE WITHOUT ID Sources, "", "{{", "}}", "red" FROM #T/📚_Book WHERE Sources FLATTEN Sources SORT Kind, Topics, Sources'
+ - 'TABLE file.name, "([", "])", "yellow" FROM #T/📚_Book WHERE Kind = "Fiction" SORT Topics, Sources'
+ - 'TABLE file.name, "([", "])", "aqua" FROM #T/📚_Book WHERE Kind = "Non-Fiction" SORT Topics, Sources'
+```
+
 Defined in the YAML by a **Nodes:** field, and structured as an array of DQL query strings that each return a set of nodes and formatting information to draw them on the Mermaid diagram. 
 
 Queries should return at least 5 columns as follows (column names, and any extra columns will be ignored):
@@ -55,6 +96,11 @@ Queries should return at least 5 columns as follows (column names, and any extra
 - *Column 5* should be the string name of a Style class. The code includes a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.  However [[#Custom Styles]] can also be created.
 
 ### Link Queries
+```
+Links:  
+ - 'TABLE WITHOUT ID Sources, file.name, "-- " + dateformat(Published, "dd MMM yyyy") + " -->" FROM #T/📚_Book WHERE Sources FLATTEN Sources'
+```
+
 Defined in the YAML by a **Links:** field, and structured as an array of DQL query strings that each return a set of relationships between two nodes to represent the arrows/links on a Mermaid diagram. 
 
 Queries should return at least 3 columns as follows (column names, and any extra columns will be ignored):
@@ -67,6 +113,11 @@ Queries should return at least 3 columns as follows (column names, and any extra
 - *Column 3* should be a string representation of Mermaid [link syntax](https://mermaid-js.github.io/mermaid/#/flowchart?id=links-between-nodes).
 
 ### Custom Styles
+```
+Styles: 
+ - 'classDef Custom1 fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px'
+```
+
 Defined in the YAML by a **Styles:** field, and structured as an array of Mermaid Class format strings. These should include a unique identifier (Custom1 in the example below) that can then be used in any [[#Node Queries]] to style the node.  
 
 - *e.g:* "classDef ==Custom1== fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px"
