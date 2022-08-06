@@ -119,7 +119,7 @@ Styles:
 
 Defined in the YAML by a **Styles:** field, and structured as an array of Mermaid Class format strings. These should include a unique identifier (Custom1 in the example below) that can then be used in any [[#Node Queries]] to style the node.  
 
-- *e.g:* "classDef ==Custom1== fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px"
+- *e.g:* "classDef Custom1 fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px"
 - Note that the included dataviewJS code also defines a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*; so it is not necessary to define any custom styles unless the defaults aren't suitable. 
 
 ## Other Defaults (defined in the dataviewJS itself)
