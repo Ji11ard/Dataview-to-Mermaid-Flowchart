@@ -19,19 +19,18 @@ It has been designed to **require no JS expertise** - with all standard function
 ## Example Output
 ![Image](https://user-images.githubusercontent.com/110291999/183233644-ee6a6318-f085-4077-a735-d8be135d9462.png)
 
-## Note about Sorting
+### Note about Sorting
 Nodes and links are added to the Mermaid code in the order that they are imported - nodes first, then links. 
 
 Ordering the DQL queries themselves (and SORTing the results within) can be very important for getting a clean layout in your final diagram. 
 
 I suggest playing with these orderings until you are happy with the results - and then moving the raw Mermaid code to a separate file to massage the order of key nodes and links if required. 
 
-## YAML Configuration
+## Example YAML Settings
 The following parameters can be included in the YAML of the charting page. Alternatively, these could be hard coded into the JS code itself - and the corresponding YAML variables have been listed at the top of the JS code to make this easier.  
 
 However, it may be easier to leave them in the YAML while you're still playing with the DQL queries and their ordering. 
 
-### Example YAML
 ```
 ---
 Direction: "LR"
@@ -54,7 +53,7 @@ Styles:
 ---
 ```
 
-### General Parameters
+## YAML Basics
 ```
 Direction: "LR"
 ShowCode: false
@@ -74,7 +73,7 @@ KeepLinksWithoutDest: true
 | **KeepLinksWithoutDest** | *true* | If true, unformatted nodes will be created to represent the destination of a link when there isn't a real node imported explicitly by [[#Node Queries]]. If false, such links will be discarded instead.  Mostly useful for cleaning up when you don't want to add too many filter criteria to your link queries.|
 
 
-### Node Queries
+## YAML Node Queries
 ```
 Nodes:
  - 'TABLE WITHOUT ID Sources, "", "{{", "}}", "red" FROM #T/📚_Book WHERE Sources FLATTEN Sources SORT Kind, Topics, Sources'
@@ -95,7 +94,7 @@ Queries should return at least 5 columns as follows (column names, and any extra
 - *Column 4* should be a string containing the corresponding closing bracket syntax.
 - *Column 5* should be the string name of a Style class. The code includes a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.  However [[#Custom Styles]] can also be created.
 
-### Link Queries
+## YAML Link Queries
 ```
 Links:  
  - 'TABLE WITHOUT ID Sources, file.name, "-- " + dateformat(Published, "dd MMM yyyy") + " -->" FROM #T/📚_Book WHERE Sources FLATTEN Sources'
@@ -112,7 +111,7 @@ Queries should return at least 3 columns as follows (column names, and any extra
 - *Column 2* should be a *page object* representing the destination of the relationship (however an unlinked reference or string will also work).
 - *Column 3* should be a string representation of Mermaid [link syntax](https://mermaid-js.github.io/mermaid/#/flowchart?id=links-between-nodes).
 
-### Custom Styles
+## YAML Custom Styles
 ```
 Styles: 
  - 'classDef Custom1 fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px'
@@ -123,6 +122,6 @@ Defined in the YAML by a **Styles:** field, and structured as an array of Mermai
 - *e.g:* "classDef ==Custom1== fill:#DDEEFF,color:#000,stroke:#000,stroke-width:1px"
 - Note that the included dataviewJS code also defines a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*; so it is not necessary to define any custom styles unless the defaults aren't suitable. 
 
-### Defaults (defined in the dataviewJS itself)
+## Other Defaults (defined in the dataviewJS itself)
 - **def** - *Default = [ open: "[", close: "]", style: "default"]* - an object containing the default open, close, and style parameters used when creating placeholder nodes (Nodes that exist in [[#Link Queries]], but don't exists explicitly in [[#Node Queries]]). 
 - **styles.push** - A collection of default style settings for the standard colours: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.
