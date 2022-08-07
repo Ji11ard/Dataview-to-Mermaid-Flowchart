@@ -9,9 +9,9 @@ It has been designed to **require no JS expertise** - with all standard function
   - Handles internal obsidian links - **diagrams are clickable**.
   - Fully customisable names / colours / node shapes / link style / link labels
 ### Basic Process
-  - Save file to your vault containing YAML + dataviewJS script. 
-  - Write several DQL queries to list the nodes you want drawn.
-  - Write several more to list the relationships between nodes.
+  - Save the md file to your vault. 
+  - Modify it with DQL queries that list the nodes you want drawn.
+  - Modify it with DQL queries that list the relationships between nodes.
   - The underlying dataviewJS will run your queries, process the results, and convert everything into mermaid syntax. 
 
 **Your options are mostly limited by your DQL creativity.**
