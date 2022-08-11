@@ -92,7 +92,7 @@ Queries should return at least 5 columns as follows (column names, and any extra
 - *Column 2* should be a *display name* string. An empty string can be provided and the code will infer a display name from object in Column 1. 
 - *Column 3* should be a string containing Mermaid open [bracket syntax](https://mermaid-js.github.io/mermaid/#/flowchart?id=node-shapes).
 - *Column 4* should be a string containing the corresponding closing bracket syntax.
-- *Column 5* should be the string name of a Style class. The code includes a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.  However [[#Custom Styles]] can also be created.
+- *Column 5* should be the string name of a Style class. The code includes a set of standard colour options to choose from: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.  However [[#Custom Styles]] can also be created. This column is not required.
 
 ## YAML Link Queries
 ```
@@ -110,6 +110,18 @@ Queries should return at least 3 columns as follows (column names, and any extra
 - *Column 1* should be a *page object* representing the source of the relationship (however an unlinked reference or string will also work).
 - *Column 2* should be a *page object* representing the destination of the relationship (however an unlinked reference or string will also work).
 - *Column 3* should be a string representation of Mermaid [link syntax](https://mermaid-js.github.io/mermaid/#/flowchart?id=links-between-nodes).
+
+## YAML Subgraph
+You can assign all nodes from a node query into a subgraph. For example if you have
+```
+Nodes:
+ - 'TABLE "", "([", "])" from "folder A"'
+ - 'TABLE "", "([", "])" from "folder B"'
+ - 'TABLE "", "([", "])" from "folder C"'
+```
+Then the nodes of each query will be assigned into a subgroup by using this `SubGroupNames: ["A", "B", "C"]`.
+
+Note: placeholder nodes (nodes that exist in [[#Link Queries]], but don't exists explicitly in [[#Node Queries]]) are not included in the subgraphs.
 
 ## YAML Custom Styles
 ```
