@@ -67,6 +67,7 @@ for (var q = 0; q < nodeQueries.length; q++) {
 		let ref = getNodeRefName(node[0]);
 		let ID = getLegalCharacters(ref);
 		let display = cleanLabel(node[0], node[1]);
+		if  (!node[4]) {node[4] = "default"}
 		let nodeObj = {qID: q, ID:ID, link:ref, name, display:display, 
 						open:node[2], close:node[3], style:node[4], linked: false}
 		nodesArray.push(nodeObj);
