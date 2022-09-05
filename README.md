@@ -137,3 +137,6 @@ Defined in the YAML by a **Styles:** field, and structured as an array of Mermai
 ## Other Defaults (defined in the dataviewJS itself)
 - **def** - *Default = [ open: "[", close: "]", style: "default"]* - an object containing the default open, close, and style parameters used when creating placeholder nodes (Nodes that exist in [[#Link Queries]], but don't exists explicitly in [[#Node Queries]]). 
 - **styles.push** - A collection of default style settings for the standard colours: *red, orange, yellow, green, mint, aqua, blue, purple, pink, grey*.
+
+## Tip
+As you can see that the YALM and the actual code are quite long, so they together can clutter your note when you want to jump to the real data you want to edit. To avoid this, you can create a supplement note that contains the code, then in your main note you can [embed](https://help.obsidian.md/How+to/Embed+files "Embed files - Obsidian Help") it with `![[supplement note^graph code]]`
